@@ -1,21 +1,18 @@
-name: Hello World CI/CD
+name: Deploy HTML to GitHub Pages (No v3 Errors)
 
 on:
   push:
-    branches: [ main ]  # or 'master', depending on your branch name
+    branches: [ main ]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          python-version: '3.x'
-
-      - name: Run Hello World script
-        run: python hello.py
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .  # your root directory (where index.html is)
